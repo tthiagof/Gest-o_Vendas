@@ -53,169 +53,168 @@
      onclick="toggleSidebar()"
      class="fixed inset-0 bg-black bg-opacity-50 hidden z-40">
 </div>
+
 <main id="mainContent" class="p-6 transition-all duration-300">
-    <div class="max-w-6xl mx-auto">
+<div class="max-w-6xl mx-auto">
 
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-3xl font-semibold">
-                Gerenciamento de Clientes
-            </h2>
-            
-            <button onclick="toggleAddForm()"
-                class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-xl font-semibold shadow">
-                ➕ Adicionar Cliente
-            </button>
-        </div>
+<div class="flex justify-between items-center mb-8">
+    <h2 class="text-3xl font-semibold">
+        Gerenciamento de Clientes
+    </h2>
+    
+    <button onclick="toggleAddForm()"
+        class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-xl font-semibold shadow">
+        ➕ Adicionar Cliente
+    </button>
+</div>
 
-                <div class="mb-6">
-                    <input
-                        id="searchById"
-                        type="number"
-                        placeholder="Buscar cliente pelo ID"
-                        class="w-full md:w-1/3 p-3 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                        oninput="filterById()"
-                    >
-                </div>
-        <section id="addForm" class="hidden bg-gray-800 p-6 rounded-2xl shadow mb-10">
-            <h3 class="text-xl font-semibold mb-6 text-center">
-                Novo Cliente
-           </h3>
+<div class="mb-6">
+    <input
+        id="searchById"
+        type="number"
+        placeholder="Buscar cliente pelo ID"
+        class="w-full md:w-1/3 p-3 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+        oninput="filterById()"
+    >
+</div>
 
-            <form method="POST" action="/dashboard/gerenclientes" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <input name="nome" placeholder="Nome"
-                    class="p-3 rounded bg-gray-900 border border-gray-700">
-                <input name="numero" placeholder="Telefone"
-                    class="p-3 rounded bg-gray-900 border border-gray-700">
-                <input name="email" placeholder="Email"
-                    class="p-3 rounded bg-gray-900 border border-gray-700">
-                <input name="cpf" placeholder="CPF"
-                    class="p-3 rounded bg-gray-900 border border-gray-700">
+<section id="addForm" class="hidden bg-gray-800 p-6 rounded-2xl shadow mb-10">
+<h3 class="text-xl font-semibold mb-6 text-center">
+    Novo Cliente
+</h3>
 
-                <button
-                    class="md:col-span-2 bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-semibold">
-                    Salvar Cliente
-                </button>
-            </form>
-        </section>
+<!-- ✅ ALTERADO: action -->
+<form method="POST" action="/dashboard/gerenclientes/add"
+      class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-        <section class="grid gap-4">
+    <input name="nome" placeholder="Nome"
+        class="p-3 rounded bg-gray-900 border border-gray-700">
+    <input name="numero" placeholder="Telefone"
+        class="p-3 rounded bg-gray-900 border border-gray-700">
+    <input name="email" placeholder="Email"
+        class="p-3 rounded bg-gray-900 border border-gray-700">
+    <input name="cpf" placeholder="CPF"
+        class="p-3 rounded bg-gray-900 border border-gray-700">
 
-            <% if (clientes && clientes.length > 0) { %>
-                <% clientes.forEach(cliente => { %>
+    <button
+        class="md:col-span-2 bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-semibold">
+        Salvar Cliente
+    </button>
+</form>
+</section>
 
-                    <div class="cliente-item bg-gray-800 p-5 rounded-xl shadow flex flex-col md:flex-row md:items-center md:justify-between gap-4"
-                        data-id="<%= cliente.id %>">
+<section class="grid gap-4">
 
-                        <div>
-                            <p class="text-lg font-semibold">
-                                <%= cliente.nome %>
-                                <% if (!cliente.ativo) { %>
-                                    <span class="text-red-500 text-sm ml-2">(Inativo)</span>
-                                <% } %>
-                            </p>
-                            <p class="text-sm text-gray-400">ID:<%= cliente.id %></p>
-                            <p class="text-sm text-gray-400"><%= cliente.email %></p>
-                            <p class="text-sm text-gray-400"><%= cliente.numero %></p>
-                        </div>
+<% if (clientes && clientes.length > 0) { %>
+<% clientes.forEach(cliente => { %>
 
-                        <button onclick="toggleEdit('<%= cliente.id %>')"
-                            class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-lg font-medium">
-                            ✏️ Editar
-                        </button>
-                    </div>
+<div class="cliente-item bg-gray-800 p-5 rounded-xl shadow flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+    data-id="<%= cliente.id %>">
 
-                    <div id="edit-<%= cliente.id %>" class="hidden bg-gray-900 p-6 rounded-xl border border-gray-700">
-                        <form method="POST" action="/dashboard/gerenclientes" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+    <p class="text-lg font-semibold">
+        <%= cliente.nome %>
+        <% if (!cliente.ativo) { %>
+            <span class="text-red-500 text-sm ml-2">(Inativo)</span>
+        <% } %>
+    </p>
+    <p class="text-sm text-gray-400">ID:<%= cliente.id %></p>
+    <p class="text-sm text-gray-400"><%= cliente.email %></p>
+    <p class="text-sm text-gray-400"><%= cliente.numero %></p>
+</div>
 
-                            <input type="hidden" name="id" value="<%= cliente.id %>">
+<button onclick="toggleEdit('<%= cliente.id %>')"
+    class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-lg font-medium">
+    ✏️ Editar
+</button>
+</div>
 
-                            <label class="block text-gray-700 dark:text-gray-300 mb-1">Nome</label>
-                            <input name="nome" value="<%= cliente.nome %>"
-                                class="p-3 rounded bg-gray-800 border border-gray-700">
+<div id="edit-<%= cliente.id %>" class="hidden bg-gray-900 p-6 rounded-xl border border-gray-700">
 
-                            <label class="block text-gray-700 dark:text-gray-300 mb-1">Email</label>
-                            <input name="email" value="<%= cliente.email %>"
-                                class="p-3 rounded bg-gray-800 border border-gray-700">
+<!-- ✅ ALTERADO: update -->
+<form method="POST"
+      action="/dashboard/gerenclientes/update/<%= cliente.id %>"
+      class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                            <label class="block text-gray-700 dark:text-gray-300 mb-1">Número</label>
-                            <input name="numero" value="<%= cliente.numero %>"
-                                class="p-3 rounded bg-gray-800 border border-gray-700">
+    <label class="block text-gray-700 dark:text-gray-300 mb-1">Nome</label>
+    <input name="nome" value="<%= cliente.nome %>"
+        class="p-3 rounded bg-gray-800 border border-gray-700">
 
-                            <div class="md:col-span-2 flex gap-3">
-                                <button
-                                    type="submit"
-                                    name="acao"
-                                    value="salvar"
-                                    class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded font-semibold">
-                                    Salvar Alterações
-                                </button>
+    <label class="block text-gray-700 dark:text-gray-300 mb-1">Email</label>
+    <input name="email" value="<%= cliente.email %>"
+        class="p-3 rounded bg-gray-800 border border-gray-700">
 
-                                <button
-                                    type="submit"
-                                    name="acao"
-                                    value="inativar"
-                                    class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded font-semibold">
-                                    Inativar Cliente
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+    <label class="block text-gray-700 dark:text-gray-300 mb-1">Número</label>
+    <input name="numero" value="<%= cliente.numero %>"
+        class="p-3 rounded bg-gray-800 border border-gray-700">
 
-                <% }) %>
-            <% } else { %>
-                <p class="text-center text-gray-400">
-                    Nenhum cliente cadastrado.
-                </p>
-            <% } %>
-
-        </section>
-
+    <div class="md:col-span-2">
+        <button
+            class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded font-semibold">
+            Salvar Alterações
+        </button>
     </div>
+</form>
+
+<!-- ✅ ALTERADO: delete separado -->
+<form method="POST"
+      action="/dashboard/gerenclientes/delete/<%= cliente.id %>"
+      class="mt-3">
+
+    <button
+        class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded font-semibold">
+        Inativar Cliente
+    </button>
+</form>
+
+</div>
+
+<% }) %>
+<% } else { %>
+<p class="text-center text-gray-400">
+    Nenhum cliente cadastrado.
+</p>
+<% } %>
+
+</section>
+</div>
 </main>
 
-
-
 <script>
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        const mainContent = document.getElementById('mainContent');
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const mainContent = document.getElementById('mainContent');
 
-        if (sidebar.classList.contains('-translate-x-full')) {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-            mainContent.classList.add('ml-64');
-        } else {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-            mainContent.classList.remove('ml-64');
-        }
+    if (sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+        mainContent.classList.add('ml-64');
+    } else {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+        mainContent.classList.remove('ml-64');
     }
+}
 
-    function toggleAddForm() {
-        const addForm = document.getElementById('addForm');
-        addForm.classList.toggle('hidden');
-    }
+function toggleAddForm() {
+    document.getElementById('addForm').classList.toggle('hidden');
+}
 
-    function toggleEdit(id) {
-        const editForm = document.getElementById(`edit-${id}`);
-        editForm.classList.toggle('hidden');
-    }
+function toggleEdit(id) {
+    document.getElementById(`edit-${id}`).classList.toggle('hidden');
+}
 
-    function filterById() {
-        const searchValue = document.getElementById('searchById').value;
-        const clientes = document.querySelectorAll('.cliente-item');
-
-        clientes.forEach(cliente => {
-            const clienteId = cliente.getAttribute('data-id');
-
-            if (searchValue === '' || clienteId.includes(searchValue)) {
-                cliente.style.display = 'flex';
-            } else {
-                cliente.style.display = 'none';
-            }
-        });
-    }
+function filterById() {
+    const searchValue = document.getElementById('searchById').value;
+    document.querySelectorAll('.cliente-item').forEach(cliente => {
+        const id = cliente.getAttribute('data-id');
+        cliente.style.display =
+            searchValue === '' || id.includes(searchValue)
+            ? 'flex'
+            : 'none';
+    });
+}
 </script>
 
 </body>
