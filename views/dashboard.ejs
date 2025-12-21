@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Dashboard - Sistema de Gestão</title>
+
+</head>
+<body class="bg-gray-900 min-h-screen">
+   <header class="w-full bg-gray-800 shadow p-4 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+        <button onclick="toggleSidebar()" class="text-white text-2xl focus:outline-none">
+            ☰
+        </button>
+
+        <h1 class="text-2xl text-white font-semibold">Sistema de Gestão</h1>
+    </div>
+    <div class="flex items-center gap-4">
+        <nav class="flex gap-4 text-gray-400">
+            <a href="#" class="hover:text-white">Configurações</a>
+            <a href="#" class="hover:text-white">Perfil</a>
+        </nav>
+        <img 
+            src="/assets/profile.jpg" 
+            alt="Foto de Perfil" 
+            class="w-10 h-10 rounded-full object-cover border border-gray-600"
+        >
+    </div>
+</header>
+
+    <aside 
+        id="sidebar"
+        class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-gray-200
+            transform -translate-x-full transition-transform duration-300 z-50"
+    >
+        <div class="p-6 text-xl font-semibold border-b border-gray-700">
+            Menu
+        </div>
+
+        <nav class="flex flex-col p-4 gap-4">
+            <a href="#" class="hover:text-white">📦 Entrada de Produtos</a>
+            <a href="#" class="hover:text-white">🚚 Saída de Produtos</a>
+            <a href="#" class="hover:text-white">🔍 Consulta de Estoque</a>
+            <a href="#" class="hover:text-white">🧾 Inventário</a>
+            <a href="/dashboard/vendas" class="hover:text-white">💵 Vendas</a>
+            <a href="#" class="hover:text-white">📜 Histórico de Vendas</a>
+            <a href="/dashboard/addproduts" class="hover:text-white">🏷️ Produtos</a>
+            <a href="/dashboard/gerenclientes" class="hover:text-white">👥 Clientes</a>
+            <a href="#" class="hover:text-white">📊 Relatórios</a>
+            <a href="#" class="hover:text-white">⚙️ Configurações</a>
+        </nav>
+    </aside>
+
+    <div 
+        id="overlay"
+        onclick="toggleSidebar()"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden z-40">
+    </div>
+
+    <main class="p-6 max-w-6xl mx-auto">
+        <h2 class="text-2xl font-semibold mb-6 text-gray-200">Menu Principal</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <a href="#" class="bg-gray-800 shadow rounded-xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+                <div class="text-4xl mb-3">📦</div>
+                <h3 class="text-white font-semibold mb-1">Entrada de Produtos</h3>
+                <p class="text-sm text-gray-300">Registrar entrada no estoque</p>
+            </a>
+
+            <a href="#" class="bg-gray-800 shadow rounded-xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+                <div class="text-4xl mb-3">🚚</div>
+                <h3 class="text-white font-semibold mb-1">Saída de Produtos</h3>
+                <p class="text-sm text-gray-300">Registrar saída do estoque</p>
+            </a>
+
+            <a href="#" class="bg-gray-800 shadow rounded-xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+                <div class="text-4xl mb-3">🔍</div>
+                <h3 class="text-white font-semibold mb-1">Consulta de Estoque</h3>
+                <p class="text-sm text-gray-300">Ver produtos disponíveis</p>
+            </a>
+
+            <a href="#" class="bg-gray-800 shadow rounded-xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+                <div class="text-4xl mb-3">🧾</div>
+                <h3 class="text-white font-semibold mb-1">Inventário</h3>
+                <p class="text-sm text-gray-300">Realizar contagem de estoque</p>
+            </a>
+
+            <a href="/dashboard/vendas" class="bg-gray-800 shadow rounded-xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+                <div class="text-4xl mb-3">💵</div>
+                <h3 class="text-white font-semibold mb-1">Vendas</h3>
+                <p class="text-sm text-gray-300">Criar nova venda</p>
+            </a>
+
+            <a href="#" class="bg-gray-800 shadow rounded-xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+                <div class="text-4xl mb-3">📜</div>
+                <h3 class="text-white font-semibold mb-1">Histórico de Vendas</h3>
+                <p class="text-sm text-gray-300">Ver vendas anteriores</p>
+            </a>
+
+            <a href="/dashboard/addproduts" class="bg-gray-800 shadow rounded-xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+                <div class="text-4xl mb-3">🏷️</div>
+                <h3 class="text-white font-semibold mb-1">Produtos</h3>
+                <p class="text-sm text-gray-300">Gerenciar catálogo</p>
+            </a>
+
+            <a href="/dashboard/gerenclientes" class="bg-gray-800 shadow rounded-xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+                <div class="text-4xl mb-3">👥</div>
+                <h3 class="text-white font-semibold mb-1">Clientes</h3>
+                <p class="text-sm text-gray-300">Gerenciar cadastro de clientes</p>
+            </a>
+
+            <a href="#" class="bg-gray-800 shadow rounded-xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+                <div class="text-4xl mb-3">📊</div>
+                <h3 class="text-white font-semibold mb-1">Relatórios</h3>
+                <p class="text-sm text-gray-300">Estoque e vendas</p>
+            </a>
+
+        </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full')
+            document.getElementById('overlay').classList.toggle('hidden')
+        }
+    </script>
+</body>
+</html>

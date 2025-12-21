@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-gray-200">
+     <header class="w-full bg-gray-800 shadow p-4 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+        <button onclick="toggleSidebar()" class="text-white text-2xl focus:outline-none">
+            ☰
+        </button>
+
+        <h1 class="text-2xl text-white font-semibold">Sistema de Gestão</h1>
+    </div>
+    <div class="flex items-center gap-4">
+        <nav class="flex gap-4 text-gray-400">
+            <a href="#" class="hover:text-white">Configurações</a>
+            <a href="#" class="hover:text-white">Perfil</a>
+        </nav>
+        <img 
+            src="/assets/profile.jpg" 
+            alt="Foto de Perfil" 
+            class="w-10 h-10 rounded-full object-cover border border-gray-600"
+        >
+    </div>
+</header>
+
+    <aside 
+        id="sidebar"
+        class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-gray-200
+            transform -translate-x-full transition-transform duration-300 z-50"
+    >
+        <div class="p-6 text-xl font-semibold border-b border-gray-700">
+            Menu
+        </div>
+
+        <nav class="flex flex-col p-4 gap-4">
+            <a href="#" class="hover:text-white">📦 Entrada de Produtos</a>
+            <a href="#" class="hover:text-white">🚚 Saída de Produtos</a>
+            <a href="#" class="hover:text-white">🔍 Consulta de Estoque</a>
+            <a href="#" class="hover:text-white">🧾 Inventário</a>
+            <a href="/dashboard/vendas" class="hover:text-white">💵 Vendas</a>
+            <a href="#" class="hover:text-white">📜 Histórico de Vendas</a>
+            <a href="/dashboard/addproduts" class="hover:text-white">🏷️ Produtos</a>
+            <a href="/dashboard/gerenclientes" class="hover:text-white">👥 Clientes</a>
+            <a href="#" class="hover:text-white">📊 Relatórios</a>
+            <a href="#" class="hover:text-white">⚙️ Configurações</a>
+        </nav>
+    </aside>
+
+    <div 
+        id="overlay"
+        onclick="toggleSidebar()"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden z-40">
+    </div>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const mainContent = document.getElementById('mainContent');
+
+        if (sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+            mainContent.classList.add('ml-64');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+            mainContent.classList.remove('ml-64');
+        }
+    }
+
+</script>
+</body>
+</html>
