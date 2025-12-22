@@ -4,12 +4,13 @@ const functions = require('../../repositories/crud');
 
 router.get('/api/produtos', async (req, res) => {
   const produtos = await functions.getproducts();
+  console.log(produtos)
   res.json(produtos);
 });
 
 router.post('/api/produtos', async (req, res) => {
-  const { nome } = req.body;
-  const add = await functions.addProduts(nome);
+  const { nome, preco, quantidade } = req.body;
+  const add = await functions.addProduts(nome, preco, quantidade);
 
   if (add === 0) {
     return res.json({ erro: 'Erro ao criar produto' });

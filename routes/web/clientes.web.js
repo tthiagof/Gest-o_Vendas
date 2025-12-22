@@ -30,5 +30,5 @@ router.post('/dashboard/gerenclientes/delete/:id', async (req, res) => {
   await axios.delete(`http://localhost:3000/api/clientes/${req.params.id}`);
   res.redirect('/dashboard/gerenclientes?success=1');
 });
-
+ 
 module.exports = router;

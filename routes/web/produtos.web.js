@@ -4,6 +4,8 @@ const router = express.Router();
 
 router.get('/dashboard/addproduts', async (req, res) => {
   const { data: produtos } = await axios.get('http://localhost:3000/api/produtos');
+  // console.log(produtos);
+  
   res.render('addproduts', { produtos, mensagem: null });
 });
 

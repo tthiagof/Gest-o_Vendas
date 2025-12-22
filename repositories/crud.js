@@ -49,10 +49,10 @@ async function getUser(email) {
 }
 
 
-async function addProduts(nome) {
+async function addProduts(nome, preco, quantidade) {
     try {
-        const sql = 'INSERT INTO produtos (nome) VALUES (?)';
-        const values = [nome];
+        const sql = 'INSERT INTO produtos (nome, preco, quantidade) VALUES (?, ?, ?)';
+        const values = [nome, preco, quantidade];
         await db.pool.query(sql, values);
         return 1;
         // console.log('Produto adicionado com sucesso!');

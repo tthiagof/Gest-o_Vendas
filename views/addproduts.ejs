@@ -85,7 +85,10 @@
                 <input name="preco" type="number" step="0.01" placeholder="Preço (R$)"
                     class="p-3 rounded bg-gray-900 border border-gray-700">
 
-                <button
+                <input name="quantidade" type="number" placeholder="Quantidade"
+                    class="p-3 rounded bg-gray-900 border border-gray-700">
+                
+                    <button
                     class="md:col-span-3 bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-semibold">
                     Salvar Produto
                 </button>
@@ -114,7 +117,7 @@
                             </p>
 
                             <p class="text-sm text-gray-400">
-                                ID:<%= produto.id %>
+                                ID:<%= produto.id %> | Preço:<%=produto.preco %> | Quantidade:<%= produto.quantidade %>
                             </p>
                         </div>
 
