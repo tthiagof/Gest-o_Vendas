@@ -73,7 +73,6 @@ Essa divisão facilita a leitura do código e permite que novas funcionalidades 
 * **MySQL**
 * **EJS**
 * **Tailwind CSS**
-* **bcrypt**
 * **Git & GitHub**
 
 As tecnologias foram escolhidas visando simplicidade, aprendizado e clareza na apresentação do funcionamento do sistema.
