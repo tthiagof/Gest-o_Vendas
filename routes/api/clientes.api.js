@@ -8,25 +8,46 @@ router.get('/api/clientes', async (req, res) => {
 });
 
 router.post('/api/clientes', async (req, res) => {
-  const { nome, numero, email, cpf } = req.body;
-  const add = await functions.addClient(nome, numero, email, cpf);
-
-  if (add === 0) {
-    return res.json({ erro: 'Erro ao criar cliente' });
+  try {
+    const { nome, numero, email, cpf } = req.body;
+    const add = await functions.addClient(nome, numero, email, cpf);
+  
+    if (!add) {
+      return res.json({ erro: 'Erro ao criar cliente' });
+    }
+    res.json({ mensagem: 'Cliente criado' });
+    
   }
-
-  res.json({ mensagem: 'Cliente criado' });
+  catch (error) {
+    console.log(error);
+    res.status(500).json({ erro: 'Erro ao criar cliente' });
+    
+  }
 });
 
 router.put('/api/clientes/:id', async (req, res) => {
-  const { nome, numero, email } = req.body;
-  await functions.updateclient(req.params.id, nome, numero, email);
-  res.json({ mensagem: 'Cliente atualizado' });
+  try {
+    const { nome, numero, email } = req.body;
+    const id = req.params.id;
+    await functions.updateclient(id, nome, numero, email);
+    res.status(200).json({ mensagem: 'Cliente atualizado' });
+
+  } 
+  catch (error) {
+    console.log(error);
+    res.status(500).json({ erro: 'Erro ao atualizar cliente' });
+  }
 });
 
 router.delete('/api/clientes/:id', async (req, res) => {
-  await functions.inactiveCliente(req.params.id);
-  res.json({ mensagem: 'Cliente inativado' });
+  try {
+    await functions.inactiveCliente(req.params.id);
+    res.status(200).json({ mensagem: 'Cliente inativado' });
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ erro: 'Erro ao inativar cliente' });
+  }
 });
 
 module.exports = router;

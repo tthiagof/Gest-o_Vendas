@@ -10,8 +10,10 @@ router.post('/login', async (req, res) => {
   try {
     await axios.post('http://localhost:3000/api/login', req.body);
     res.redirect('/dashboard');
-  } catch {
-    res.render('login', { erro: 'Login inválido' });
+  } 
+  catch (error){
+    const erro = error.response.data.erro;
+    res.render('login', { erro });
   }
 });
 
