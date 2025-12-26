@@ -8,26 +8,25 @@
 </head>
 
 <body class="bg-gray-900 text-gray-200">
-     <header class="w-full bg-gray-800 shadow p-4 flex justify-between items-center">
-    <div class="flex items-center gap-3">
-        <button onclick="toggleSidebar()" class="text-white text-2xl focus:outline-none">
-            ☰
-        </button>
-
-        <h1 class="text-2xl text-white font-semibold">Sistema de Gestão</h1>
-    </div>
-    <div class="flex items-center gap-4">
-        <nav class="flex gap-4 text-gray-400">
-            <a href="#" class="hover:text-white">Configurações</a>
-            <a href="#" class="hover:text-white">Perfil</a>
-        </nav>
-        <img 
-            src="/assets/profile.jpg" 
-            alt="Foto de Perfil" 
-            class="w-10 h-10 rounded-full object-cover border border-gray-600"
-        >
-    </div>
-</header>
+    <header class="w-full bg-gray-800 shadow p-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <button onclick="toggleSidebar()" class="text-white text-2xl focus:outline-none">
+                ☰
+            </button>
+            <h1 class="text-2xl text-white font-semibold">Sistema de Gestão</h1>
+        </div>
+        <div class="flex items-center gap-4">
+            <nav class="flex gap-4 text-gray-400">
+                <a href="#" class="hover:text-white">Configurações</a>
+                <a href="#" class="hover:text-white">Perfil</a>
+            </nav>
+            <img 
+                src="/assets/profile.jpg" 
+                alt="Foto de Perfil" 
+                class="w-10 h-10 rounded-full object-cover border border-gray-600"
+            >
+        </div>
+    </header>
 
     <aside 
         id="sidebar"
@@ -58,6 +57,191 @@
         class="fixed inset-0 bg-black bg-opacity-50 hidden z-40">
     </div>
 
+    <main id="mainContent" class="p-6 transition-all duration-300">
+        <div class="max-w-6xl mx-auto">
+    
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-semibold">
+                    Gerenciamento de Vendas
+                </h2>
+    
+                <button onclick="toggleAddForm()"
+                    class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-xl font-semibold shadow">
+                    ➕ Criar Venda
+                </button>
+            </div>
+    
+            <!-- Formulário de Nova Venda -->
+            <section id="addForm" class="hidden bg-gray-800 p-6 rounded-2xl shadow mb-10">
+                <h3 class="text-xl font-semibold mb-6 text-center">
+                    Nova Venda
+                </h3>
+    
+                <form method="POST" action="/dashboard/vendas/add" class="space-y-6">
+    
+                    <!-- Seleção de Cliente -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-300">
+                            Cliente *
+                        </label>
+                        <select name="clienteId" required
+                            class="p-3 rounded bg-gray-900 border border-gray-700 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                            <option value="">Selecione um cliente</option>
+                            <% if (clientes && clientes.length > 0) { %>
+                                <% clientes.forEach(cliente => { %>
+                                    <option value="<%= cliente.id %>">
+                                        <%= cliente.nome %> - <%= cliente.email || cliente.numero || '' %>
+                                    </option>
+                                <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <!-- Seleção de Produto -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-300">
+                            Produto *
+                        </label>
+                        <select name="produtoId" required id="produtoSelect"
+                            onchange="atualizarPreco()"
+                            class="p-3 rounded bg-gray-900 border border-gray-700 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                            <option value="">Selecione um produto</option>
+                            <% if (produtos && produtos.length > 0) { %>
+                                <% produtos.forEach(produto => { %>
+                                    <% if (produto.ativo) { %>
+                                        <option value="<%= produto.id %>" 
+                                                data-preco="<%= produto.preco %>"
+                                                data-estoque="<%= produto.quantidade %>">
+                                            <%= produto.nome %> - R$ <%= produto.preco %> (Estoque: <%= produto.quantidade %>)
+                                        </option>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <!-- Quantidade -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-medium text-gray-300">
+                                Quantidade *
+                            </label>
+                            <input name="quantidade" type="number" min="1" required
+                                id="quantidadeInput"
+                                onchange="calcularTotal()"
+                                placeholder="Quantidade"
+                                class="p-3 rounded bg-gray-900 border border-gray-700 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-medium text-gray-300">
+                                Valor Total
+                            </label>
+                            <input type="text" readonly id="totalVenda"
+                                placeholder="R$ 0,00"
+                                class="p-3 rounded bg-gray-900 border border-gray-700 text-gray-400 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Observações (Opcional) -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-300">
+                            Observações (opcional)
+                        </label>
+                        <textarea name="observacoes" rows="3"
+                            placeholder="Observações sobre a venda..."
+                            class="p-3 rounded bg-gray-900 border border-gray-700 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+                    </div>
+                    
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-semibold">
+                        💰 Finalizar Venda
+                    </button>
+    
+                    <% if (mensagem) { %>
+                        <p class="text-center text-green-500 font-medium">
+                            <%= mensagem %>
+                        </p>
+                    <% } %>
+                </form>
+            </section>
+    
+            <!-- Lista de Vendas Realizadas -->
+            <section class="space-y-4">
+                <h3 class="text-2xl font-semibold mb-4">
+                    Vendas Realizadas
+                </h3>
+
+                <% if (vendas && vendas.length > 0) { %>
+                    <% vendas.forEach(venda => { %>
+    
+                        <div class="bg-gray-800 p-5 rounded-xl shadow">
+    
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                                <div>
+                                    <p class="text-lg font-semibold">
+                                        Venda #<%= venda.id %>
+                                    </p>
+                                    <p class="text-sm text-gray-400">
+                                        Data: <%= new Date(venda.data_venda).toLocaleDateString('pt-BR') %>
+                                    </p>
+                                </div>
+
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold text-green-400">
+                                        R$ <%= parseFloat(venda.valor_total).toFixed(2) %>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-900 p-4 rounded-lg">
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase">Cliente</p>
+                                    <p class="font-medium"><%= venda.clienteNome || 'N/A' %></p>
+                                </div>
+
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase">Produto</p>
+                                    <p class="font-medium"><%= venda.produtoNome || 'N/A' %></p>
+                                </div>
+
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase">Quantidade</p>
+                                    <p class="font-medium"><%= venda.quantidade %> unidades</p>
+                                </div>
+
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase">Preço Unitário</p>
+                                    <p class="font-medium">R$ <%= parseFloat(venda.preco_unitario || 0).toFixed(2) %></p>
+                                </div>
+
+                                <% if (venda.observacoes) { %>  
+                                    <div class="md:col-span-2">
+                                        <p class="text-xs text-gray-500 uppercase">Observações</p>
+                                        <p class="text-sm"><%= venda.observacoes %></p>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                        </div>
+    
+                    <% }) %>
+                <% } else { %>
+                    <div class="bg-gray-800 p-8 rounded-xl text-center">
+                        <p class="text-gray-400 text-lg">
+                            📋 Nenhuma venda realizada ainda.
+                        </p>
+                        <p class="text-gray-500 text-sm mt-2">
+                            Clique em "Criar Venda" para registrar sua primeira venda.
+                        </p>
+                    </div>
+                <% } %>
+    
+            </section>
+    
+        </div>
+    </main>
+
 <script>
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
@@ -75,6 +259,38 @@
         }
     }
 
+    function toggleAddForm() {
+        const form = document.getElementById('addForm');
+        form.classList.toggle('hidden');
+    }
+
+    function atualizarPreco() {
+        calcularTotal();
+    }
+
+    function calcularTotal() {
+        const select = document.getElementById('produtoSelect');
+        const quantidade = document.getElementById('quantidadeInput').value;
+        const totalInput = document.getElementById('totalVenda');
+
+        if (select.value && quantidade) {
+            const option = select.options[select.selectedIndex];
+            const preco = parseFloat(option.dataset.preco);
+            const estoque = parseInt(option.dataset.estoque);
+            const qtd = parseInt(quantidade);
+
+            if (qtd > estoque) {
+                alert(`Estoque insuficiente! Disponível: ${estoque} unidades`);
+                document.getElementById('quantidadeInput').value = estoque;
+                return;
+            }
+
+            const total = preco * qtd;
+            totalInput.value = `R$ ${total.toFixed(2)}`;
+        } else {
+            totalInput.value = 'R$ 0,00';
+        }
+    }
 </script>
 </body>
 </html>
