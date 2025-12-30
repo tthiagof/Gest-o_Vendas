@@ -1,5 +1,5 @@
-const express = require('express')
-const axios = require('axios')
+import express from 'express'
+import axios from 'axios'
 const router = express.Router()
 
 router.get('/dashboard/vendas', async (req, res) =>{
@@ -23,9 +23,9 @@ router.post('/dashboard/vendas/add', async (req, res) =>{
         await axios.post('http://localhost:3000/api/vendas', req.body)
         res.redirect('/dashboard/vendas?success=1')
     } catch (error) {
-        console.log(`Erro ao criar venda:${error}`);
+        console.log(`Erro ao criar venda:${error}`)
         res.redirect('/dashboard/vendas?erro=1')
     }
 })
 
-module.exports = router 
+export default router
