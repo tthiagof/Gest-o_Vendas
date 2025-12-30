@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const functions = require('../../repositories/crud');
+const functions = require('../../repositories/vendas.db');
 
 router.get('/api/vendas', async (req, res) => {
     const vendas = await functions.getAllvendas();
@@ -14,13 +14,13 @@ router.post('/api/vendas', async (req, res) => {
             return res.status(400).json({ erro: 'Dados obrigatórios não informados' });
         }
 
-        console.log('Dados recebidos:', req.body);
+        // console.log('Dados recebidos:', req.body);
         const produto = await functions.getbyProduct(produtoId);
 
         let precoUnitario
         let valorTotal
         produto.forEach(item => {
-            console.log(`Produto: ${item.nome}, Quantidade: ${item.quantidade}, Preço: ${item.preco}`)
+            // console.log(`Produto: ${item.nome}, Quantidade: ${item.quantidade}, Preço: ${item.preco}`)
             if (!item) {
                 return res.status(404).json({ erro: 'Produto não encontrado' });
             }
@@ -31,8 +31,8 @@ router.post('/api/vendas', async (req, res) => {
             precoUnitario = item.preco;
             valorTotal = precoUnitario * quantidade;
         })
-        console.log('Valor Total:', valorTotal);
-        console.log('Preço Unitário:', precoUnitario);
+        // console.log('Valor Total:', valorTotal);
+        // console.log('Preço Unitário:', precoUnitario);
 
 
         const add = await functions.addVendas(

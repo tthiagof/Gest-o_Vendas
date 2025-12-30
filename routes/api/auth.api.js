@@ -1,6 +1,7 @@
+
 const express = require('express');
 const router = express.Router();
-const functions = require('../../repositories/crud');
+const functions = require('../../repositories/auth.db');
 
 router.post('/api/login', async (req, res) => {
   // console.log("Enttrou login");

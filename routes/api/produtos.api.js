@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const functions = require('../../repositories/crud');
+const functions = require('../../repositories/produtos.db');
 
 router.get('/api/produtos', async (req, res) => {
   const produtos = await functions.getproducts();

@@ -129,7 +129,7 @@
 
                     <div id="edit-<%= produto.id %>" class="hidden bg-gray-900 p-6 rounded-xl border border-gray-700">
                     
-                        <form method="POST" action="/dashboard/addproduts/alter" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <form method="POST" action="/dashboard/addproduts/update/<%= produto.id %>" class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
                             <input type="hidden" name="id" value="<%= produto.produtID %>">
 

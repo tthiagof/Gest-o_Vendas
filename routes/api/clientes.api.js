@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const functions = require('../../repositories/crud');
+const functions = require('../../repositories/clientes.db');
 
 router.get('/api/clientes', async (req, res) => {
   const clientes = await functions.getUserAtive();
