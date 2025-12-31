@@ -30,4 +30,9 @@ router.delete('/api/produtos/:id', async (req, res) => {
   res.json({ mensagem: 'Produto inativado' })
 })
 
+router.put('/api/produtos/active/:id', async (req, res) => {
+  await functions.activeProduct(req.params.id)
+  res.json({ mensagem: 'Produto inativado' })
+})
+
 export default router

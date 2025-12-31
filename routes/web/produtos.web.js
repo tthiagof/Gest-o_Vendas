@@ -19,13 +19,39 @@ router.post('/dashboard/addproduts/add', async (req, res) => {
 })
 
 router.post('/dashboard/addproduts/update/:id', async (req, res) => {
-  await axios.put(`http://localhost:3000/api/produtos/${req.params.id}`, req.body)
-  res.redirect('/dashboard/addproduts?success=1')
+  try {
+    await axios.put(`http://localhost:3000/api/produtos/${req.params.id}`, req.body)
+    res.redirect('/dashboard/addproduts?success=1')
+    
+  } catch (error) {
+    console.log(error)
+    res.redirect('/dashboard/addproduts?success=1')
+
+  }
 })
 
-router.post('/dashboard/addproduts/delete/:id', async (req, res) => {
-  await axios.delete(`http://localhost:3000/api/produtos/${req.params.id}`)
-  res.redirect('/dashboard/addproduts?success=1')
+router.post('/dashboard/addproduts/inactivate/:id', async (req, res) => {
+  try {
+    await axios.delete(`http://localhost:3000/api/produtos/${req.params.id}`)
+    res.redirect('/dashboard/addproduts?success=1')
+    
+  } catch (error) {
+    console.log(error)
+    res.redirect('/dashboard/addproduts?erro=1')
+    
+  }
+})
+
+router.post('/dashboard/addproduts/activate/:id', async (req, res) => {
+  try {
+    await axios.put(`http://localhost:3000/api/produtos/active/${req.params.id}`)
+    res.redirect('/dashboard/addproduts?success=1')
+    
+  } catch (error) {
+    console.log(error)
+    res.redirect('/dashboard/addproduts?erro=1')
+    
+  }
 })
 
 export default router

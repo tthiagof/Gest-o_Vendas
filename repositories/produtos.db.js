@@ -23,10 +23,10 @@ async function getproducts() {
         return []
     }
 }
-async function updateProduct(id, nome) {
+async function updateProduct(id, nome, preco, quantidade) {
     try {
-        const sql = 'UPDATE produtos SET nome = ? WHERE id = ?'
-        const values = [nome, id] 
+        const sql = 'UPDATE produtos SET nome = ?, preco = ?, quantidade = ? WHERE id = ?'
+        const values = [nome, preco, quantidade, id]
         await db.query(sql, values)
         console.log(`Produto de ID:${id}, foi modificado com sucesso!`)
         
@@ -38,20 +38,30 @@ async function updateProduct(id, nome) {
 
 async function inactiveProduct(id) {
     try {
-        const sql = 'UPDATTE produtos SET  ativo = 0 WHERE id = ?'
+        const sql = 'UPDATE produtos SET  ativo = 0 WHERE id = ?'
         const values = [id]
         await db.query(sql, values)
     } catch (error) {
         console.log(error)
     }
-    
+}
+
+async function activeProduct(id) {
+    try {
+        const sql = 'UPDATE produtos SET  ativo = 1 WHERE id = ?'
+        const values = [id]
+        await db.query(sql, values)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const functions = {
     addProduts,
     getproducts,
     updateProduct,
-    inactiveProduct
+    inactiveProduct,
+    activeProduct
 }
 export default functions
 
