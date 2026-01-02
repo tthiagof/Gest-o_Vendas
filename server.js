@@ -1,4 +1,6 @@
+import 'dotenv/config'
 import express from 'express'
+import session from 'express-session'
 
 import authApi from './routes/api/auth.api.js'
 import clientesApi from './routes/api/clientes.api.js'
@@ -19,6 +21,13 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
 
+app.use(session({
+  secret: process.env.KEY_SECRET, 
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } 
+}))
+
 app.use(authApi)
 app.use(clientesApi)
 app.use(produtosApi)
@@ -29,6 +38,7 @@ app.use(dashboardWeb)
 app.use(clientesWeb)
 app.use(produtosWeb)
 app.use(vendasWeb)
+
 
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}/login`)

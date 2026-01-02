@@ -8,7 +8,9 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    await axios.post('http://localhost:3000/api/login', req.body)
+
+    const {data: usuario} = await axios.post('http://localhost:3000/api/login', req.body)
+    req.session.usuarioLogado = {id: usuario.id, email: usuario.email}
     res.redirect('/dashboard')
   } 
   catch (error){

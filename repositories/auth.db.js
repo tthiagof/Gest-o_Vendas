@@ -2,7 +2,7 @@ import db from '../model/db.js'
 
 async function getUser(email) {
     try {
-        const sql = 'SELECT email, senha FROM usuarios WHERE email = ?'
+        const sql = 'SELECT id, email, senha FROM usuarios WHERE email = ?'
         const values = [email]
         const [rows] = await db.query(sql, values)
         // console.log('Usuário encontrado com sucesso!');

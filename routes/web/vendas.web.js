@@ -1,8 +1,9 @@
+import functions from '../../middlewares/auth.middlewares.js'
 import express from 'express'
 import axios from 'axios'
 const router = express.Router()
 
-router.get('/dashboard/vendas', async (req, res) =>{
+router.get('/dashboard/vendas',functions.authWeb, async (req, res) =>{
     const {data: vendas, error} = await axios.get('http://localhost:3000/api/vendas')
     const {data: produtos} = await axios.get('http://localhost:3000/api/produtos')
     const {data: clientes} = await axios.get('http://localhost:3000/api/clientes')

@@ -1,3 +1,5 @@
+import 'dotenv/config' 
+// import jwt from 'jsonwebtoken'
 import express from 'express'
 import functions from '../../repositories/auth.db.js'
 const router = express.Router()
@@ -7,8 +9,8 @@ router.post('/api/login', async (req, res) => {
   try {
     const { email, senha } = req.body
     const [user] = await functions.getUser(email)
-    // console.log(req.body);
-    // console.log(user);
+    // console.log(req.body)
+    console.log(user)
 
     if (!user) {
       // console.log("Usuario invalido!");
@@ -20,7 +22,7 @@ router.post('/api/login', async (req, res) => {
       return res.status(401).json({ erro: 'Senha inválida' })
     }
 
-    res.status(200).json({ mensagem: 'Login OK' })
+    res.status(200).json({id: user.id, email: user.email ,mensagem: 'Login OK' })
   } catch {
     res.status(500).json({ erro: 'Erro interno' })
   }

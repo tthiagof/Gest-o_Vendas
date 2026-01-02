@@ -1,15 +1,13 @@
+import functions from '../../middlewares/auth.middlewares.js'
 import express from 'express'
 import axios from 'axios'
 const router = express.Router()
 
-router.get('/dashboard/gerenclientes', async (req, res) => {
+router.get('/dashboard/gerenclientes', functions.authWeb, async (req, res) => {
   const { data: clientes } = await axios.get('http://localhost:3000/api/clientes')
 
-  let mensagem = null
-  if (req.query.success) mensagem = 'Cliente adicionado com sucesso!'
-  if (req.query.erro) mensagem = 'Erro ao adicionar cliente!'
-
-  res.render('gerenclientes', { clientes, mensagem })
+  
+  res.render('gerenclientes', { clientes })
 })
 
 router.post('/dashboard/gerenclientes/add', async (req, res) => {
