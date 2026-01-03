@@ -33,6 +33,16 @@ async function getUserAtive() {
         return []
     }
 }
+async function getUsers() {
+    try {
+        const sql = 'SELECT * FROM clientes'
+        const [rows] = await db.query(sql)
+        return rows
+    } catch (error) {
+        console.error('Erro ao buscar usuários ativos:', error)
+        return []
+    }
+}
 
 async function updateclient(id, nome, numero, email) {
   try {
@@ -47,10 +57,25 @@ async function updateclient(id, nome, numero, email) {
   }  
 }
 
+async function activeCliente(id) {
+    try {
+        const sql = 'UPDATE clientes SET ativo = 1 WHERE id = ?'
+        const value = [id]
+        await db.query(sql, value)
+        console.log(`Usuario de id: ${id}, foi ativado com sucesso`)
+    
+    } catch (error) {
+        console.log(`Erro ao ativar usuario: ${error}`)
+
+    }    
+}
+
 const functions = {
     addClient,
     inactiveCliente,
     getUserAtive,
-    updateclient
+    updateclient,
+    activeCliente,
+    getUsers
 }
 export default functions

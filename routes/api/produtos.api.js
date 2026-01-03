@@ -8,6 +8,11 @@ router.get('/api/produtos', async (req, res) => {
   res.json(produtos)
 })
 
+router.get('/api/produtos/assets', async (req, res) => {
+  const produtos = await functions.getproductsactive()
+  res.json(produtos)
+})
+
 router.post('/api/produtos', async (req, res) => {
   const { nome, preco, quantidade } = req.body
   const add = await functions.addProduts(nome, preco, quantidade)

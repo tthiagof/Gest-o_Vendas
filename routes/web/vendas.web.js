@@ -5,8 +5,8 @@ const router = express.Router()
 
 router.get('/dashboard/vendas',functions.authWeb, async (req, res) =>{
     const {data: vendas, error} = await axios.get('http://localhost:3000/api/vendas')
-    const {data: produtos} = await axios.get('http://localhost:3000/api/produtos')
-    const {data: clientes} = await axios.get('http://localhost:3000/api/clientes')
+    const {data: produtos} = await axios.get('http://localhost:3000/api/produtos/assets')
+    const {data: clientes} = await axios.get('http://localhost:3000/api/clientes/assets')
     // const success = req.query.success
     // const erro = req.query.erro
     // console.log(`Vendas: ${vendas}/n Produtos: ${produtos}/n Clientes: ${clientes}`)

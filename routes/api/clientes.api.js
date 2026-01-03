@@ -3,6 +3,11 @@ import functions from '../../repositories/clientes.db.js'
 const router = express.Router()
 
 router.get('/api/clientes', async (req, res) => {
+  const clientes = await functions.getUsers()
+  res.json(clientes)
+})
+
+router.get('/api/clientes/assets', async (req, res) => {
   const clientes = await functions.getUserAtive()
   res.json(clientes)
 })
@@ -39,7 +44,7 @@ router.put('/api/clientes/:id', async (req, res) => {
   }
 })
 
-router.delete('/api/clientes/:id', async (req, res) => {
+router.put('/api/clientes/inacitve/:id', async (req, res) => {
   try {
     await functions.inactiveCliente(req.params.id)
     res.status(200).json({ mensagem: 'Cliente inativado' })
@@ -50,4 +55,14 @@ router.delete('/api/clientes/:id', async (req, res) => {
   }
 })
 
+router.put('/api/clientes/acitve/:id', async (req, res) => {
+  try {
+    await functions.activeCliente(req.params.id)
+    res.status(200).json({ mensagem: 'Cliente ativado' })
+    
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ erro: 'Erro ao ativar cliente' })
+  }
+})
 export default router

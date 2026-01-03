@@ -39,7 +39,6 @@ app.use(clientesWeb)
 app.use(produtosWeb)
 app.use(vendasWeb)
 
-
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}/login`)
 })

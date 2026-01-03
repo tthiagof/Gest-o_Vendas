@@ -1,8 +1,7 @@
 function authWeb(req, res, next) {
   console.log(req.session)
-  
-  if (req.session && req.session.usuarioLogado) {
-    console.log(`Autorizado: ${req.session.usuarioLogado.email}`)
+    if (req.session && req.session.usuarioLogado) {
+    // console.log(`Autorizado: ${req.session.usuarioLogado.email}`)
     return next()
   }
 

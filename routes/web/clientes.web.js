@@ -6,7 +6,6 @@ const router = express.Router()
 router.get('/dashboard/gerenclientes', functions.authWeb, async (req, res) => {
   const { data: clientes } = await axios.get('http://localhost:3000/api/clientes')
 
-  
   res.render('gerenclientes', { clientes })
 })
 
@@ -24,9 +23,14 @@ router.post('/dashboard/gerenclientes/update/:id', async (req, res) => {
   res.redirect('/dashboard/gerenclientes?success=1')
 })
 
-router.post('/dashboard/gerenclientes/delete/:id', async (req, res) => {
-  await axios.delete(`http://localhost:3000/api/clientes/${req.params.id}`)
+router.post('/dashboard/gerenclientes/inactive/:id', async (req, res) => {
+  await axios.put(`http://localhost:3000/api/clientes/inacitve/${req.params.id}`)
   res.redirect('/dashboard/gerenclientes?success=1')
 })
- 
+
+router.post('/dashboard/gerenclientes/active/:id', async (req, res) => {
+  await axios.put(`http://localhost:3000/api/clientes/acitve/${req.params.id}`)
+  res.redirect('/dashboard/gerenclientes?success=1')
+}) 
+
 export default router

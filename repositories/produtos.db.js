@@ -13,6 +13,17 @@ async function addProduts(nome, preco, quantidade) {
     }
 }
 
+async function getproductsactive() {
+    try {
+        const sql = 'SELECT * FROM produtos WHERE ativo = 1'
+        const [rows] = await db.query(sql)
+        return rows
+    } catch (error) {
+        console.error('Erro ao buscar produtos:', error)
+        return []
+    }
+}
+
 async function getproducts() {
     try {
         const sql = 'SELECT * FROM produtos'
@@ -61,7 +72,8 @@ const functions = {
     getproducts,
     updateProduct,
     inactiveProduct,
-    activeProduct
+    activeProduct,
+    getproductsactive
 }
 export default functions
 
