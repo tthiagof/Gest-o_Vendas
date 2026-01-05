@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Clientes/clientes.main.css">
     <title>Gerenciamento de Clientes</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src=" https://cdn.tailwindcss.com">
+    </script>
 </head>
 
 <body class="bg-gray-900 text-gray-200">
@@ -144,7 +146,7 @@
                                     <% if (!cliente.ativo) { %>
                                         <button class="bg-green-600 hover:bg-red-700 px-4 py-2 rounded font-semibold"
                                             onclick="return confirm('Deseja realmente ATIVAR este cliente?')"
-                                            formaction="/dashboard/gerenclientes/active/<%= cliente.id %>" >
+                                            formaction="/dashboard/gerenclientes/active/<%= cliente.id %>">
                                             ativar Cliente
                                         </button>
                                         <% } else { %>
@@ -153,12 +155,12 @@
                                                 formaction="/dashboard/gerenclientes/inactive/<%= cliente.id %>">
                                                 inativar Cliente
                                             </button>
-                                        <% } %>
+                                            <% } %>
                                 </div>
                             </form>
 
                             <!-- <form method="POST" action="/dashboard/gerenclientes/delete/<%= cliente.id %>" class="mt-3"> -->
-                                        <!-- </form> -->
+                            <!-- </form> -->
 
                         </div>
 
@@ -172,44 +174,11 @@
             </section>
         </div>
     </main>
-
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            const mainContent = document.getElementById('mainContent');
-
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-                mainContent.classList.add('ml-64');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-                mainContent.classList.remove('ml-64');
-            }
-        }
-
-        function toggleAddForm() {
-            document.getElementById('addForm').classList.toggle('hidden');
-        }
-
-        function toggleEdit(id) {
-            document.getElementById(`edit-${id}`).classList.toggle('hidden');
-        }
-
-        function filterById() {
-            const searchValue = document.getElementById('searchById').value;
-            document.querySelectorAll('.cliente-item').forEach(cliente => {
-                const id = cliente.getAttribute('data-id');
-                cliente.style.display =
-                    searchValue === '' || id.includes(searchValue)
-                        ? 'flex'
-                        : 'none';
-            });
-        }
-    </script>
-
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <span style="font-family: sans-serif; font-weight: bold;">Processando...</span>
+    </div>
+    <script src="/Clientes/clientes.main.js"></script>
 </body>
 
 </html>
