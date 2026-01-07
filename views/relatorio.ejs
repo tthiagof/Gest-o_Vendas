@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-gray-200">
+    <header class="w-full bg-gray-800 shadow p-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <button onclick="toggleSidebar()" class="text-white text-2xl focus:outline-none">
+                ☰
+            </button>
+            <h1 class="text-2xl text-white font-semibold">Sistema de Gestão</h1>
+        </div>
+        <div class="flex items-center gap-4">
+            <nav class="flex gap-4 text-gray-400">
+                <a href="#" class="hover:text-white">Configurações</a>
+                <a href="#" class="hover:text-white">Perfil</a>
+            </nav>
+            <img 
+                src="/assets/profile.jpg" 
+                alt="Foto de Perfil" 
+                class="w-10 h-10 rounded-full object-cover border border-gray-600"
+            >
+        </div>
+    </header>
+
+    <aside 
+        id="sidebar"
+        class="fixed top-0 left-0 h-full w-64 bg-gray-900 text-gray-200
+            transform -translate-x-full transition-transform duration-300 z-50"
+    >
+        <div class="p-6 text-xl font-semibold border-b border-gray-700">
+            Menu
+        </div>
+
+        <nav class="flex flex-col p-4 gap-4">
+            <a href="#" class="hover:text-white">📦 Entrada de Produtos</a>
+            <a href="#" class="hover:text-white">🚚 Saída de Produtos</a>
+            <a href="#" class="hover:text-white">🔍 Consulta de Estoque</a>
+            <a href="/dashboard/vendas" class="hover:text-white">💵 Vendas</a>
+            <a href="#" class="hover:text-white">📜 Histórico de Vendas</a>
+            <a href="/dashboard/addproduts" class="hover:text-white">🏷️ Produtos</a>
+            <a href="/dashboard/gerenclientes" class="hover:text-white">👥 Clientes</a>
+            <a href="#" class="hover:text-white">📊 Relatórios</a>
+            <a href="#" class="hover:text-white">⚙️ Configurações</a>
+        </nav>
+    </aside>
+
+    <div 
+        id="overlay"
+        onclick="toggleSidebar()"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden z-40">
+    </div>
+
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-10">
+            <h2 class="text-3xl font-bold text-white">Central de Relatórios</h2>
+            <p class="text-gray-400">Selecione o módulo e o formato desejado para exportação.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg flex flex-col items-center">
+                <div class="text-4xl mb-4">👥</div>
+                <h3 class="text-xl font-semibold text-white mb-2">Clientes</h3>
+                <p class="text-gray-400 text-center text-sm mb-6">Lista completa com dados de contato e status.</p>
+                <div class="flex gap-3 w-full">
+                    <a href="/api/relatorio/clientes/pdf" target="_blank" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-center py-2 rounded font-medium transition">PDF</a>
+                    <a href="/api/relatorio/clientes/excel" class="flex-1 bg-green-600 hover:bg-green-700 text-white text-center py-2 rounded font-medium transition">Excel</a>
+                </div>
+            </div>
+
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg flex flex-col items-center">
+                <div class="text-4xl mb-4">🏷️</div>
+                <h3 class="text-xl font-semibold text-white mb-2">Produtos</h3>
+                <p class="text-gray-400 text-center text-sm mb-6">Relatório de inventário e preços unitários.</p>
+                <div class="flex gap-3 w-full">
+                    <a href="/api/relatorio/produtos/pdf" target="_blank" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-center py-2 rounded font-medium transition">PDF</a>
+                    <a href="/api/relatorio/produtos/excel" class="flex-1 bg-green-600 hover:bg-green-700 text-white text-center py-2 rounded font-medium transition">Excel</a>
+                </div>
+            </div>
+
+            <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg flex flex-col">
+                <div class="flex items-center justify-center text-4xl mb-4">💵</div>
+                <h3 class="text-xl font-semibold text-white text-center mb-2">Vendas</h3>
+                <p class="text-gray-400 text-center text-sm mb-4">Histórico financeiro por período.</p>
+                
+                <div class="space-y-3 mt-auto">
+                    <select id="periodoVendas" class="w-full bg-gray-700 border border-gray-600 text-white rounded p-2 text-sm outline-none focus:border-blue-500">
+                        <option value="">Todo o Histórico</option>
+                        <!-- <option value="semana">Últimos 7 dias</option>
+                        <option value="mes">Último mês</option>
+                        <option value="ano">Último ano</option> -->
+                    </select>
+                    
+                    <div class="flex gap-3">
+                        <!-- <button onclick="baixarVendas('pdf')" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded font-medium transition">PDF</button>
+                        <button onclick="baixarVendas('excel')" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded font-medium transition">Excel</button> -->
+                        <a href="/api/relatorio/vendas/pdf" target="_blank" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-center py-2 rounded font-medium transition">PDF</a>
+                        <a href="/api/relatorio/vendas/excel" class="flex-1 bg-green-600 hover:bg-green-700 text-white text-center py-2 rounded font-medium transition">Excel</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+    <script src="/relatorio/relatorio.main.js"></script>
+</body>
+</html>
