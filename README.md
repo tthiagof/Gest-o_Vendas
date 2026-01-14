@@ -1,98 +1,32 @@
-# 📊 Sistema de Controle de Vendas e Estoque
+# Sales & Inventory System
 
-Sistema desenvolvido para **gerenciamento de vendas, clientes, produtos e estoque**, com foco em organização, clareza de fluxo e separação de responsabilidades. O projeto foi pensado para representar, de forma objetiva, o funcionamento de um sistema comercial completo.
+Sistema para gestão comercial que integra vendas, estoque e clientes em uma arquitetura organizada e funcional.
 
----
+##  O Projeto
 
-## 🧠 Visão Geral do Sistema
+O foco central é a **automação e integridade**. O sistema elimina falhas manuais ao atualizar o inventário em tempo real a cada venda realizada, garantindo que o fluxo entre o pedido e a baixa no estoque seja preciso e seguro.
 
-O sistema centraliza as principais rotinas de uma operação de vendas, permitindo o controle integrado entre **cadastros**, **movimentações** e **estoque**. A lógica do projeto foi construída para que cada ação reflita diretamente no estado do sistema, evitando inconsistências e facilitando a manutenção.
-
-A aplicação segue um modelo organizado, onde cada camada possui uma responsabilidade bem definida, tornando o funcionamento do sistema fácil de entender e apresentar.
-
----
-
-## 🔄 Funcionamento Geral
-
-O fluxo do sistema ocorre da seguinte forma:
-
-1. O usuário acessa o sistema e realiza a autenticação
-2. Após autenticado, pode gerenciar clientes e produtos
-3. Cada venda registrada associa cliente e produto
-4. O estoque é atualizado automaticamente a cada venda
-5. Os dados permanecem organizados no banco de dados para consulta e controle
-
-Esse fluxo garante consistência entre vendas e estoque, evitando registros manuais e erros comuns em controles informais.
+* **Fluxo de Vendas:** Registro vinculado diretamente a clientes e produtos.
+* **Controle de Estoque:** Atualização automática de quantidades.
+* **Segurança:** Módulo de autenticação e controle de acesso.
+* **Organização:** Estrutura em camadas para facilitar a escalabilidade.
 
 ---
 
-## 🧩 Arquitetura e Organização
+## Stack Técnica
 
-O projeto foi estruturado seguindo boas práticas de separação de responsabilidades:
-
-* **Rotas**: responsáveis por receber as requisições e direcionar o fluxo
-* **Repositórios**: camada responsável pelo acesso ao banco de dados
-* **Views**: interface renderizada para o usuário
-* **Configurações**: centralizam conexões e ajustes do sistema
-
-Essa divisão facilita a leitura do código e permite que novas funcionalidades sejam adicionadas sem impactar o restante do sistema.
+* **Backend:** NodeJS + Express
+* **Banco de Dados:** MySQL
+* **Frontend:** EJS + Tailwind CSS
 
 ---
 
-## 📦 Principais Módulos
+##  Objetivo
 
-### 👤 Autenticação
-
-* Validação de usuários
-* Controle de acesso ao sistema
-* Senhas armazenadas de forma segura
-
-### 🧾 Clientes
-
-* Cadastro e gerenciamento de clientes
-* Busca e organização das informações
-
-### 📦 Produtos e Estoque
-
-* Cadastro de produtos
-* Controle de quantidade disponível
-* Atualização automática conforme vendas
-
-### 💰 Vendas
-
-* Registro de vendas
-* Associação entre cliente e produto
-* Impacto direto no estoque
+Demonstrar a construção de uma aplicação comercial completa, focando em lógica de backend, manipulação de banco de dados relacional e a aplicação de boas práticas de organização de código.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
-
-* **Node.js**
-* **Express.js**
-* **MySQL**
-* **EJS**
-* **Tailwind CSS**
-* **Git & GitHub**
-
-As tecnologias foram escolhidas visando simplicidade, aprendizado e clareza na apresentação do funcionamento do sistema.
+** Desenvolvido por [Thiago Ferreira**](https://github.com/tthiagof)
 
 ---
-
-## 🎯 Objetivo do Projeto
-
-Este projeto tem como objetivo demonstrar:
-
-* A construção de um sistema de controle comercial
-* Organização de código backend em camadas
-* Integração entre vendas e estoque
-* Aplicação de boas práticas iniciais em Node.js
-
-É ideal para **apresentação técnica**, **portfólio** ou **base para projetos maiores**.
-
----
-
-## 👨‍💻 Autor
-
-Desenvolvido por **Thiago Ferreira**
-GitHub: [https://github.com/tthiagof](https://github.com/tthiagof)
