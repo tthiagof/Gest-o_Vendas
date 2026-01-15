@@ -1,13 +1,22 @@
+import jwt from 'jsonwebtoken';
+
 function authWeb(req, res, next) {
-  req.session.usuarioLogado = {id: 1, email: 'admin@admin'}
-  console.log(req.session)
-    if (req.session && req.session.usuarioLogado) {
-    // console.log(`Autorizado: ${req.session.usuarioLogado.email}`)
-    return next()
+  const usuario = req.session.usuarioLogado;
+  console.log(usuario);
+
+  if (!usuario || !usuario.token) {
+    console.log('Sem sessão ativa. Redirecionando...');
+    return res.redirect('/login');
   }
 
-  console.log('Acesso negado: redirecionando para login')
-  res.redirect('/login')
+  try {
+    const verificado = jwt.verify(usuario.token, process.env.JWT_SECRET);
+    req.user = verificado;
+    next();
+  } catch (error) {
+    console.log('Token inválido ou expirado.');
+    res.redirect('/login');
+  }
 }
 
 const functions = {
