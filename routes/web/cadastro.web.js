@@ -19,6 +19,7 @@ router.post('/cadastro', async (req, res) => {
         
         return res.status(500).json({ message: "Servidor de cadastro indisponível" });
     }
+
 })
 
 export default router
