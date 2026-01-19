@@ -19,7 +19,7 @@ import vendasWeb from './routes/web/vendas.web.js'
 import relatorioWeb from './routes/web/relatorio.web.js'
 
 const app = express()
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -50,5 +50,5 @@ app.use(vendasWeb)
 app.use(relatorioWeb)
 
 app.listen(PORT, () => {
-  console.log(`http://localhost:${PORT}/cadastro`)
+  console.log(`http://localhost:${PORT}`)
 })
